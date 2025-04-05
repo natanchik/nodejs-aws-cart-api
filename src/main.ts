@@ -13,7 +13,17 @@ async function bootstrap() {
   const port = configService.get('APP_PORT') || 4000;
 
   app.enableCors({
-    origin: (req, callback) => callback(null, true),
+    origin: ['https://d3va6qdznuogt0.cloudfront.net', 'http://localhost:4000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: [
+      'Content-Type',
+      'X-Amz-Date',
+      'Authorization',
+      'X-Api-Key',
+      'X-Amz-Security-Token',
+      'X-Amz-User-Agent',
+    ],
+    credentials: true,
   });
   app.use(helmet());
 
