@@ -15,7 +15,23 @@ async function bootstrapServer(): Promise<Server> {
 
   const app = await NestFactory.create(AppModule, adapter);
   app.use(eventContext());
-  app.enableCors();
+  app.enableCors({
+    origin: ['https://d3va6qdznuogt0.cloudfront.net', 'http://localhost:3000'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: [
+      'Content-Type',
+      'X-Amz-Date',
+      'Authorization',
+      'X-Api-Key',
+      'X-Amz-Security-Token',
+      'X-Amz-User-Agent',
+      'Access-Control-Allow-Origin',
+      'Access-Control-Allow-Headers',
+      'Access-Control-Allow-Methods',
+      'Access-Control-Allow-Credentials',
+    ],
+    credentials: true,
+  });
 
   await app.init();
 
